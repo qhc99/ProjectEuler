@@ -1,6 +1,8 @@
 package org.nathan.Euler;
 
 import java.math.BigInteger;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -625,6 +627,20 @@ public final class Difficulty5{
         }
 
         System.out.println(max);
+    }
+
+    @SuppressWarnings("unused")
+    public static void answer19(){
+        int sum = 0;
+        for(int year = 1901; year <= 2000; year++){
+            for(int month = 1; month <= 12; month++){
+                LocalDate date = LocalDate.of(year,month,1);
+                if(date.getDayOfWeek().equals(DayOfWeek.SUNDAY)){
+                    sum++;
+                }
+            }
+        }
+        System.out.println(sum);
     }
 
     @SuppressWarnings("unused")
