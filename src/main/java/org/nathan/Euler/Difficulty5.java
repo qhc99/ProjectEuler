@@ -411,7 +411,7 @@ public final class Difficulty5{
         for(; num >= 1; num--){
             long len = lengthOfCollatzSequence(num);
             if(len > max_len){
-                max_len =len;
+                max_len = len;
                 target = num;
             }
         }
@@ -435,15 +435,15 @@ public final class Difficulty5{
     @SuppressWarnings("unused")
     public static void answer15(){
         for(int i = 2; i <= 20; i++){
-            System.out.printf("%d: %d\n",i, searchGrid(i));
+            System.out.printf("%d: %d\n", i, searchGrid(i));
         }
     }
 
     private static long searchGrid(int size){
-        long[][] store = new long[size+1][size+1];
+        long[][] store = new long[size + 1][size + 1];
         store[0][0] = 1;
 
-        for(int sum = 1; sum <= size*2; sum++){
+        for(int sum = 1; sum <= size * 2; sum++){
             for(int i = 0; i <= sum && i <= size; i++){
                 int j = sum - i;
                 if(j < 0 || j > size){
@@ -451,11 +451,11 @@ public final class Difficulty5{
                 }
 
                 if(i - 1 >= 0){
-                    store[i][j] += store[i-1][j];
+                    store[i][j] += store[i - 1][j];
                 }
 
                 if(j - 1 >= 0){
-                    store[i][j] += store[i][j-1];
+                    store[i][j] += store[i][j - 1];
                 }
             }
         }
@@ -463,6 +463,7 @@ public final class Difficulty5{
         return store[size][size];
     }
 
+    @SuppressWarnings("unused")
     public static void answer16(){
         BigInteger mul = new BigInteger("1");
         BigInteger factor = new BigInteger("33554432");
@@ -473,6 +474,173 @@ public final class Difficulty5{
         long sum = 0;
         for(int i = 0; i < s.length(); i++){
             sum += s.charAt(i) - '0';
+        }
+        System.out.println(sum);
+    }
+
+    @SuppressWarnings("unused")
+    public static void answer17(){
+        int sum = 0;
+        for(int i = 1; i <= 1000; i++){
+            var s = getNumberEnglishFormat(i);
+            sum += s.replace(" ", "").length();
+        }
+        System.out.println(sum);
+    }
+
+    private static String getNumberEnglishFormat(int num){
+        if(num <= 0){
+            throw new IllegalArgumentException();
+        }
+        String[] numbers = new String[]{
+                "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+                "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
+        };
+
+        String[] multiple_10 = new String[]{
+                "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"
+        };
+
+        String HUNDRED = "hundred";
+        String THOUSAND = "thousand";
+        if(num < 20){
+            return numbers[num - 1];
+        }
+        else if(num < 100){
+            int tenth = num / 10;
+            int one = num - tenth * 10;
+            if(one != 0){
+                return multiple_10[tenth - 1] + " " + numbers[one - 1];
+            }
+            else{
+                return multiple_10[tenth - 1];
+            }
+        }
+        else{
+            if(num == 100){
+                return "one " + HUNDRED;
+            }
+
+            if(num == 1000){
+                return "one " + THOUSAND;
+            }
+
+            int hundredth = num / 100;
+            int tenth = (num - hundredth * 100) / 10;
+            int one = num - hundredth * 100 - tenth * 10;
+
+            if(one == 0){
+                if(tenth == 0){
+                    return numbers[hundredth - 1] + " " + HUNDRED;
+                }
+                else{
+                    return numbers[hundredth - 1] + " " + HUNDRED + " and " + multiple_10[tenth - 1];
+                }
+            }
+            else{
+                if(tenth == 0){
+                    return numbers[hundredth - 1] + " " + HUNDRED + " and " + numbers[one - 1];
+                }
+                else{
+                    if(tenth == 1){
+                        return numbers[hundredth - 1] + " " + HUNDRED + " and " + numbers[tenth * 10 + one - 1];
+                    }
+                    else{
+                        return numbers[hundredth - 1] + " " + HUNDRED + " and " + multiple_10[tenth - 1] + " " + numbers[one - 1];
+                    }
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public static void answer18(){
+        String[] data = ("75\n" +
+                "95 64\n" +
+                "17 47 82\n" +
+                "18 35 87 10\n" +
+                "20 04 82 47 65\n" +
+                "19 01 23 75 03 34\n" +
+                "88 02 77 73 07 63 67\n" +
+                "99 65 04 28 06 16 70 92\n" +
+                "41 41 26 56 83 40 80 70 33\n" +
+                "41 48 72 33 47 32 37 16 94 29\n" +
+                "53 71 44 65 25 43 91 52 97 51 14\n" +
+                "70 11 33 28 77 73 17 78 39 68 17 57\n" +
+                "91 71 52 38 17 14 91 43 58 50 27 29 48\n" +
+                "63 66 04 68 89 53 67 30 73 16 69 87 40 31\n" +
+                "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23").split("\\n");
+
+        String[][] dataMatrix = new String[data.length][];
+        for(int i = 0; i < data.length; i++){
+            dataMatrix[i] = data[i].split(" ");
+        }
+
+        String[][] transformedMatrix = new String[data.length][];
+        for(int i = 0; i < data.length; i++){
+            transformedMatrix[i] = new String[data.length - i];
+            int idx = 0;
+            for(int row = 0; row < data.length; row++){
+                if(dataMatrix[row].length - i - 1 >= 0){
+                    transformedMatrix[i][idx++] = dataMatrix[row][dataMatrix[row].length - i - 1];
+                }
+            }
+        }
+
+        long[][] sums = new long[data.length][];
+        for(int i = 0; i < data.length; i++){
+            sums[i] = new long[data.length - i];
+            for(int c = 0; c < data.length - i; c++){
+                sums[i][c] = Integer.parseInt(transformedMatrix[i][c]);
+            }
+        }
+
+        for(int sum = 1; sum < data.length; sum++){
+            for(int r = 0; r < data.length; r++){
+                int c = sum - r;
+                if(c < 0 || c >= data.length){
+                    break;
+                }
+
+                if(c - 1 >= 0){
+                    if(r - 1 >= 0){
+                        sums[r][c] += Math.max(sums[r][c-1], sums[r-1][c]);
+                    }
+                    else{
+                        sums[r][c] += sums[r][c-1];
+                    }
+                }
+                else{
+                    sums[r][c] += sums[r-1][c];
+                }
+            }
+        }
+
+        long max = 0;
+        for(int i = 0; i < data.length; i++){
+            long t = sums[i][sums[i].length-1];
+            if(t > max){
+                max = t;
+            }
+        }
+
+        System.out.println(max);
+    }
+
+    @SuppressWarnings("unused")
+    public static void answer20(){
+        var a = new BigInteger("87178291200");
+        var b = new BigInteger("296541907200");
+        var c = new BigInteger("318073392000");
+        var d = new BigInteger("63606090240");
+        var n = a.multiply(b).multiply(c).multiply(d);
+        for(int i = 39; i <= 100; i++){
+            n = n.multiply(new BigInteger(Integer.toString(i)));
+        }
+        var s = n.toString();
+        long sum = 0;
+        for(int i = 0; i < s.length(); i++){
+            sum += Integer.parseInt(String.valueOf(s.charAt(i)));
         }
         System.out.println(sum);
     }
