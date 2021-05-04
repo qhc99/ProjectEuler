@@ -3,7 +3,7 @@ package org.nathan.Euler;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public final class utils{
+public final class Utils{
     /**
      * generate prime numbers less or equal limit
      * @param limit included upper limit
