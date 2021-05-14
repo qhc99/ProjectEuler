@@ -1,11 +1,12 @@
-import org.nathan.Euler.*;
+import static org.nathan.centralUtils.NumericUtils.*;
 
 public final class Main{
     public static void main(String[] args){
         var t1 = System.nanoTime();
-        var r = Utils.primeGen(100000000);
-        System.out.println(r.get(1000));
+        var r = primeGen(200);
+        System.out.println(r.get(r.size()-1));
         var t2 = System.nanoTime();
-        System.out.println((t2-t1)/Math.pow(10,6));
+        System.out.printf("%fms%n",(t2-t1)/Math.pow(10,6));
+
     }
 }

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
+import static org.nathan.centralUtils.NumericUtils.*;
 
 /**
  * n th solution less than 50
@@ -48,7 +49,7 @@ public final class Difficulty5{
     @SuppressWarnings("unused")
     public static void answer3(){
         long num = 600851475143L;
-        List<Integer> primes = Utils.primeGen(7000);
+        List<Integer> primes = primeGen(7000);
         for(var prime : primes){
             while(num % prime == 0) {
                 num /= prime;
@@ -64,7 +65,7 @@ public final class Difficulty5{
     public static void answer4(){
         int max = 999999;
         while(true) {
-            List<Integer> primeFactors = Utils.getAllPrimeFactors(max, 999999);
+            List<Integer> primeFactors = getAllPrimeFactors(max, 999999);
             if(isMultipleOf_3_Digits(max, primeFactors)){
                 System.out.println(max);
                 break;
@@ -141,7 +142,7 @@ public final class Difficulty5{
 
     @SuppressWarnings("unused")
     public static void answer7(){
-        var l = Utils.primeGen(200_000);
+        var l = primeGen(200_000);
         System.out.println(l.get(10_000));
     }
 
@@ -204,7 +205,7 @@ public final class Difficulty5{
 
     @SuppressWarnings("unused")
     public static void answer10(){
-        List<Integer> l = Utils.primeGen(2_000_000);
+        List<Integer> l = primeGen(2_000_000);
         long sum = 0;
         for(var prime : l){
             sum += prime;
@@ -281,7 +282,7 @@ public final class Difficulty5{
         int triNum = 0;
         for(int i = 1; i < 100_000; i++){
             triNum += i;
-            var l = Utils.getAllDivisors(triNum, 100_000);
+            var l = getAllDivisors(triNum, 100_000);
             if(l.size() > 500){
                 System.out.println(triNum);
                 break;
