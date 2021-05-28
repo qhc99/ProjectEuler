@@ -65,7 +65,7 @@ public final class Difficulty5{
     public static void answer4(){
         int max = 999999;
         while(true) {
-            List<Integer> primeFactors = factoring(max).keySet().stream().toList();
+            List<Integer> primeFactors = getAllPrimeFactors(max);
             if(isMultipleOf_3_Digits(max, primeFactors)){
                 System.out.println(max);
                 break;
