@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
-import static org.nathan.centralUtils.NumericUtils.*;
+import static org.nathan.centralUtils.utils.NumericUtils.*;
 
 /**
  * n th solution less than 50
@@ -65,7 +65,7 @@ public final class Difficulty5{
     public static void answer4(){
         int max = 999999;
         while(true) {
-            List<Integer> primeFactors = getAllPrimeFactors(max, 999999);
+            List<Integer> primeFactors = factoring(max).keySet().stream().toList();
             if(isMultipleOf_3_Digits(max, primeFactors)){
                 System.out.println(max);
                 break;
@@ -282,7 +282,7 @@ public final class Difficulty5{
         int triNum = 0;
         for(int i = 1; i < 100_000; i++){
             triNum += i;
-            var l = getAllDivisors(triNum, 100_000);
+            var l = getAllDivisors(triNum);
             if(l.size() > 500){
                 System.out.println(triNum);
                 break;
