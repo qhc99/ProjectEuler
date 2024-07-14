@@ -1,1 +1,1 @@
-my solutions of Project Euler https://projecteuler.net/
+Solutions of Project Euler https://projecteuler.net/
